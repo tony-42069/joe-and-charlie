@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Joe & Charlie BB Study</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Joe & Charlie BB Study Admin</h1>
+        <h2>Alcoholics Anonymous @ NWAC</h2>
+        <nav>
+            <a href="/">Viewer Page</a>
+            <a href="/qr">QR Code</a>
+        </nav>
+    </header>
+    <main>
+        <section class="admin-section">
+            <h2>Add New Transcription</h2>
+            <form id="transcribe-form">
+                <div class="form-group">
+                    <label for="youtube-url">YouTube URL:</label>
+                    <input type="url" id="youtube-url" required placeholder="Enter YouTube video URL">
+                </div>
+                <div class="form-group">
+                    <label for="meeting-date">Meeting Date:</label>
+                    <input type="date" id="meeting-date" required>
+                </div>
+                <button type="submit">Transcribe</button>
+            </form>
+            <div id="transcription-result"></div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
