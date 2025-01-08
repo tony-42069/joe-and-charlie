@@ -3,26 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alcoholics Anonymous - NWAC</title>
+    <title>Joe & Charlie BB Study @ NWAC</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <img src="assets/podcast-cover.jpg" alt="Joe & Charlie BB Study Cover" class="cover-image">
-        <h1>Alcoholics Anonymous</h1>
-        <h2>Joe & Charlie BB Study @ NWAC</h2>
-        <h3>Every Wednesday at 6:00 PM</h3>
-        
-    </header>
-    <main>
-        <section id="calendar">
+    <div class="container">
+        <div class="fade-in">
+            <img src="assets/podcast-cover.jpg" alt="Joe & Charlie BB Study" class="cover-image">
+            <h1>Alcoholics Anonymous</h1>
+            <h2>Joe & Charlie BB Study @ NWAC</h2>
+            <h3>Every Wednesday at 6:00 PM</h3>
+        </div>
+
+        <div class="meeting-dates fade-in">
             <h2>Meeting Dates</h2>
             <div id="date-buttons"></div>
-        </section>
-        <section id="transcripts">
+        </div>
+
+        <div id="transcripts" class="fade-in">
             <p>Select a meeting date to view the transcription.</p>
-        </section>
-    </main>
+        </div>
+
+        <div class="aa-quote fade-in">
+            "One Day at a Time"
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

@@ -49,11 +49,12 @@ async function handleFormSubmit(event) {
         if (data.success) {
             resultDiv.innerHTML = `
                 <div class="transcription-result">
-                    <h2>Transcription Successful</h2>
                     <p>Transcript saved for ${formatDate(new Date(date))}</p>
                     <a href="/?date=${date}" target="_blank">View Transcript</a>
                 </div>
             `;
+            // Refresh the calendar after adding new transcript
+            generateCalendar();
         } else {
             throw new Error(data.error || 'Transcription failed');
         }
@@ -65,28 +66,43 @@ async function handleFormSubmit(event) {
 
 function generateCalendar() {
     const dateButtons = document.getElementById('date-buttons');
+    dateButtons.innerHTML = ''; // Clear existing buttons
     
-    // Add first meeting - January 1st, 2025
-    const firstMeetingDate = new Date('2025-01-01T18:00:00');
-    const dateString = '2025-01-01'; // Explicitly set the correct date format
+    // Define our meetings
+    const meetings = [
+        {
+            date: '2025-01-01T18:00:00',
+            title: 'AA History: Introduction'
+        },
+        {
+            date: '2025-01-08T18:00:00',
+            title: 'AA History: Affecting Others'
+        }
+    ];
     
-    const button = document.createElement('button');
-    button.textContent = formatDate(firstMeetingDate);
-    button.addEventListener('click', () => {
-        window.location.href = `/?date=${dateString}`;
+    // Create button for each meeting
+    meetings.forEach(meeting => {
+        const meetingDate = new Date(meeting.date);
+        const dateString = meetingDate.toISOString().split('T')[0];
+        
+        const button = document.createElement('div');
+        button.className = 'meeting-button';
+        button.textContent = `${formatDate(meetingDate)} - ${meeting.title}`;
+        button.onclick = () => {
+            window.location.href = `/?date=${dateString}`;
+        };
+        dateButtons.appendChild(button);
     });
-    dateButtons.appendChild(button);
 }
 
 function formatDate(date) {
-    return date.toLocaleDateString('en-US', {
+    const formattedDate = date.toLocaleDateString('en-US', {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
+        day: 'numeric'
     });
+    return `${formattedDate} at 6:00 PM`;
 }
 
 async function loadTranscript(date) {
@@ -104,10 +120,18 @@ async function loadTranscript(date) {
         if (!response.ok) throw new Error('Transcript not found');
         
         const transcript = await response.text();
+        const formattedTranscript = transcript.split('\n').map(line => {
+            if (line.startsWith('Joe:')) {
+                return `<div class="speaker-joe">${line}</div>`;
+            } else if (line.startsWith('Charlie:')) {
+                return `<div class="speaker-charlie">${line}</div>`;
+            }
+            return `<div class="transcript-line">${line}</div>`;
+        }).join('');
+        
         transcriptSection.innerHTML = `
             <div class="transcription-result">
-                <h2>Transcription for ${formatDate(new Date(date))}</h2>
-                <pre>${transcript}</pre>
+                <div class="transcript-content">${formattedTranscript}</div>
                 <button onclick="window.location.href='/'">Back to Calendar</button>
             </div>
         `;
