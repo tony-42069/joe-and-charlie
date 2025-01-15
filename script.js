@@ -77,6 +77,10 @@ function generateCalendar() {
         {
             date: '2025-01-08T18:00:00',
             title: 'AA History: Affecting Others'
+        },
+        {
+            date: '2025-01-15T18:00:00',
+            title: 'AA History: Rebuilding Homes'
         }
     ];
     
